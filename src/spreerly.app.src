@@ -1,0 +1,12 @@
+{application, spreerly,
+ [
+  {description, ""},
+  {vsn, "1"},
+  {registered, []},
+  {applications, [
+                  kernel,
+                  stdlib
+                 ]},
+  {mod, { spreerly_app, []}},
+  {env, []}
+ ]}.
