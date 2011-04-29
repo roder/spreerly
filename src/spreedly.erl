@@ -1,6 +1,18 @@
 -module(spreedly).
-%% -export([create_subscriber/4]).
--compile(export_all).
+
+-export([create_subscriber/3,
+         update_subscriber/4,
+         complimentary_subscriptions/4,
+         complimentary_extension/4,
+         complimentary_lifetime/4,
+         credit/4,
+         fee/4,
+         stop_auto_renew/3,
+         subscription_plans/2,
+         free_trial/4,
+         allow_free_trial/3
+        ]).
+
 -define(VERSION, "v4").
 
 create_subscriber(Site, Key, Subscriber) ->
@@ -107,6 +119,12 @@ allow_free_trial(Site, Key, SubscriberID) ->
         _ ->
             {error, [{resp_code, StatusCode}, {headers, _Headers}, {body, ResponseBody}]}
    end.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                                                          %%
+%%                          INTERNAL API FUNCTIONS                          %%
+%%                                                                          %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 get(Site, Key, Path) ->
   request(Site, Key, Path, get, []).
