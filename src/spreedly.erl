@@ -14,7 +14,7 @@ create_subscriber(Site, Key, Subscriber) ->
 
 update_subscriber(Site, Key, SubscriberID, Subscriber) ->
     Body = xmerl:export_simple(Subscriber, xmerl_xml, []),
-    Resource = io:format("subscribers/~s.xml",[SubscriberID]),
+    Resource = io_lib:format("subscribers/~s.xml",[SubscriberID]),
     {ok, StatusCode, _Headers, ResponseBody} = put(Site, Key, Resource, Body), 
     case StatusCode of
         "200" -> erlsome:simple_form(ResponseBody);
@@ -24,7 +24,7 @@ update_subscriber(Site, Key, SubscriberID, Subscriber) ->
 
 complimentary_subscriptions(Site, Key, SubscriberID, SubscriptionData) ->
     Body = xmerl:export_simple(SubscriptionData, xmerl_xml, []),
-    Resource = io:format("subscribers/~s/complimentary_subscriptions.xml",[SubscriberID]),
+    Resource = io_lib:format("subscribers/~s/complimentary_subscriptions.xml",[SubscriberID]),
     {ok, StatusCode, _Headers, ResponseBody} = post(Site, Key, Resource, Body),
     case StatusCode of
         "201" -> erlsome:simple_form(ResponseBody);
@@ -34,7 +34,7 @@ complimentary_subscriptions(Site, Key, SubscriberID, SubscriptionData) ->
 
 complimentary_extension(Site, Key, SubscriberID, ExtensionData) ->
     Body = xmerl:export_simple(ExtensionData, xmerl_xml, []),
-    Resource = io:format("subscribers/~s/complimentary_time_extension.xml",[SubscriberID]),
+    Resource = io_lib:format("subscribers/~s/complimentary_time_extension.xml",[SubscriberID]),
     {ok, StatusCode, _Headers, ResponseBody} = post(Site, Key, Resource, Body),
     case StatusCode of
         "201" -> erlsome:simple_form(ResponseBody);
@@ -44,7 +44,7 @@ complimentary_extension(Site, Key, SubscriberID, ExtensionData) ->
 
 complimentary_lifetime(Site, Key, SubscriberID, SubscriptionData) ->
     Body = xmerl:export_simple(SubscriptionData, xmerl_xml, []),
-    Resource = io:format("subscribers/~s/lifetime_complimentary_subscriptions.xml",[SubscriberID]),
+    Resource = io_lib:format("subscribers/~s/lifetime_complimentary_subscriptions.xml",[SubscriberID]),
     {ok, StatusCode, _Headers, ResponseBody} = post(Site, Key, Resource, Body),
     case StatusCode of
         "201" -> erlsome:simple_form(ResponseBody);
@@ -54,7 +54,7 @@ complimentary_lifetime(Site, Key, SubscriberID, SubscriptionData) ->
 
 credit(Site, Key, SubscriberID, Amount) when is_list(Amount) ->
     Body = xmerl:export_simple({"credit",[],[{"amount",[],[Amount]}]}, xmerl_xml, []),
-    Resource = io:format("subscribers/~s/credits.xml",[SubscriberID]),
+    Resource = io_lib:format("subscribers/~s/credits.xml",[SubscriberID]),
     {ok, StatusCode, _Headers, ResponseBody} = post(Site, Key, Resource, Body),
     case StatusCode of
         "201" -> erlsome:simple_form(ResponseBody);
@@ -64,7 +64,7 @@ credit(Site, Key, SubscriberID, Amount) when is_list(Amount) ->
 
 fee(Site, Key, SubscriberID, FeeData) ->
     Body = xmerl:export_simple(FeeData, xmerl_xml, []),
-    Resource = io:format("subscribers/~s/fees.xml",[SubscriberID]),
+    Resource = io_lib:format("subscribers/~s/fees.xml",[SubscriberID]),
     {ok, StatusCode, _Headers, ResponseBody} = post(Site, Key, Resource, Body),
     case StatusCode of
         "201" -> erlsome:simple_form(ResponseBody);
@@ -73,7 +73,7 @@ fee(Site, Key, SubscriberID, FeeData) ->
    end. 
 
 stop_auto_renew(Site, Key, SubscriberID) ->
-    Resource = io:format("subscribers/~s/stop_auto_renew.xml",[SubscriberID]),
+    Resource = io_lib:format("subscribers/~s/stop_auto_renew.xml",[SubscriberID]),
     {ok, StatusCode, _Headers, ResponseBody} = post(Site, Key, Resource, []),
     case StatusCode of
         "201" -> erlsome:simple_form(ResponseBody);
@@ -91,7 +91,7 @@ subscription_plans(Site, Key) ->
 
 free_trial(Site, Key, SubscriberID, SubscriptionData) ->
     Body = xmerl:export_simple(SubscriptionData, xmerl_xml, []),
-    Resource = io:format("subscribers/~s/subscribe_to_free_trial.xml",[SubscriberID]),
+    Resource = io_lib:format("subscribers/~s/subscribe_to_free_trial.xml",[SubscriberID]),
     {ok, StatusCode, _Headers, ResponseBody} = put(Site, Key, Resource, Body), 
     case StatusCode of
         "200" -> erlsome:simple_form(ResponseBody);
@@ -100,7 +100,7 @@ free_trial(Site, Key, SubscriberID, SubscriptionData) ->
    end.
 
 allow_free_trial(Site, Key, SubscriberID) ->
-    Resource = io:format("subscribers/~s/allow_free_trial.xml",[SubscriberID]),
+    Resource = io_lib:format("subscribers/~s/allow_free_trial.xml",[SubscriberID]),
     {ok, StatusCode, _Headers, ResponseBody} = put(Site, Key, Resource, []), 
     case StatusCode of
         "200" -> erlsome:simple_form(ResponseBody);
